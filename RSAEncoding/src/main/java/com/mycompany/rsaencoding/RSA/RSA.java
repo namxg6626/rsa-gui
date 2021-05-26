@@ -25,41 +25,37 @@ public class RSA {
     public void setKeyPair(KeyPair keyPair) {
         this.keyPair = keyPair;
     }
-    
+
     public RSA() {
     }
 
-    public KeyPair generateKeyPair() {
+    public KeyPair generateRandomKeyPair() {
         // step 1: choose 2 prime numbers // private side
-//        int q = this.getRandomPrimeNumber();
-//        int p = this.getRandomPrimeNumber();
-        
-        int p = 7;
-        int q = 2;
-        
-        System.out.println("q " + q);
-        System.out.println("p " + p);
+        int q = this.getRandomPrimeNumber();
+        int p = this.getRandomPrimeNumber();
 
         // private side
         // step 2: calculate the phi 
         int phi = (p - 1) * (q - 1);
-        
+
         // public side
         // step 3: multiple 2 prime numbers => the modulus
-        int modulus = p * q; 
-        
+        int N = p * q;
+
         // public side
         // step 4: find the e 
-        int e = this.findE(modulus, phi);
-        System.out.println("e " + e);
-        if (e == 0) {
-            return null;
+        int e = this.findE(N, phi);
+        if (e == -1) {
+            return this.generateRandomKeyPair();
         }
+
+        PublicKey pub = new PublicKey(e, N);
         
-        PublicKey pub = new PublicKey(e, modulus);
+        int d = this.findModuloInverse(e, phi);
+        PrivateKey pvt = new PrivateKey(p, q, d);
         
         // step 3: 
-        KeyPair keyPair = new KeyPair();
+        KeyPair keyPair = new KeyPair(pub, pvt);
         return keyPair;
     }
 
@@ -74,20 +70,36 @@ public class RSA {
     }
 
     private int getRandomPrimeNumber() {
-        Random ran = new Random();
         int num = 0;
+        Random rand = new Random(); // generate a random number
+        num = rand.nextInt(1000) + 1;
+
+        while (!isPrimeNumber(num)) {
+            num = rand.nextInt(1000) + 1;
+        }
 
         return num;
     }
-    
+
+    // result = a^-1 mod b
+    private int findModuloInverse(int a, int b) {
+        for (int i = 1; i < b; i++) {
+            if (((long) a * i) % b == 1) {
+                return i;
+            }
+        }
+        
+        return -1;
+    }
+
     private int findE(int modulus, int phi) {
         for (int i = 2; i < phi; i++) {
             if (this.gcd(i, phi) == 1 && this.gcd(i, modulus) == 1) {
                 return i;
             }
         }
-        
-        return 0;
+
+        return -1;
     }
 
     private boolean isPrimeNumber(int num) {
@@ -101,20 +113,20 @@ public class RSA {
 
         return true;
     }
-    
+
     private int gcd(int a, int b) {
         if (a < b) {
             a = a + b;
             b = a - b;
             a = a - b;
         }
-        
+
         while (b != 0) {
             int t = b;
             b = a % b;
             a = t;
         }
-        
+
         return a;
     }
 }

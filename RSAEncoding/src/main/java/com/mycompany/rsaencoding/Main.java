@@ -6,6 +6,7 @@
 package com.mycompany.rsaencoding;
 import com.mycompany.rsaencoding.RSAGUI;
 import com.mycompany.rsaencoding.RSA.RSA;
+import com.mycompany.rsaencoding.RSA.KeyPair;
 
 /**
  *
@@ -14,6 +15,8 @@ import com.mycompany.rsaencoding.RSA.RSA;
 public class Main {
     public static void main(String[] args) {
         RSA rsa = new RSA();
-        rsa.generateKeyPair();
+        KeyPair keyPair = rsa.generateRandomKeyPair();
+        rsa.setKeyPair(keyPair);
+        System.out.println("keyPair ", rsa.getKeyPair());
     }
 }

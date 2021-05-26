@@ -5,9 +5,6 @@
  */
 package com.mycompany.rsaencoding.RSA;
 
-import com.mycompany.rsaencoding.RSA.PrivateKey;
-import com.mycompany.rsaencoding.RSA.PublicKey;
-
 /**
  *
  * @author namxg
