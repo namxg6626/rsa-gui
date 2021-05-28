@@ -17,6 +17,12 @@ public class Main {
         RSA rsa = new RSA();
         KeyPair keyPair = rsa.generateRandomKeyPair();
         rsa.setKeyPair(keyPair);
-        System.out.println("keyPair ", rsa.getKeyPair());
+        String str = "qwerQWER";
+        String encrypted = rsa.encrypt(str);
+        String decrypted = rsa.decrypt(encrypted);
+        System.out.println("enterred " + str);
+        System.out.println("encrypted " + encrypted);
+        System.out.println("decrypted " + decrypted);
+//        System.out.println("keyPair ", rsa.getKeyPair());
     }
 }

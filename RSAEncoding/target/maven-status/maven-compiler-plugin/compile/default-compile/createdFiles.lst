@@ -1,6 +1,7 @@
 com\mycompany\rsaencoding\RSA\KeyPair.class
 com\mycompany\rsaencoding\RSAGUI.class
-com\mycompany\rsaencoding\RSAGUI$1.class
 com\mycompany\rsaencoding\RSA\PublicKey.class
 com\mycompany\rsaencoding\RSA\PrivateKey.class
+com\mycompany\rsaencoding\RSAGUI$1.class
+com\mycompany\rsaencoding\Main.class
 com\mycompany\rsaencoding\RSA\RSA.class
