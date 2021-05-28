@@ -17,7 +17,7 @@ public class Main {
         RSA rsa = new RSA();
         KeyPair keyPair = rsa.generateRandomKeyPair();
         rsa.setKeyPair(keyPair);
-        String str = "qwerQWER";
+        String str = "ZXCVBNM";
         String encrypted = rsa.encrypt(str);
         String decrypted = rsa.decrypt(encrypted);
         System.out.println("enterred " + str);

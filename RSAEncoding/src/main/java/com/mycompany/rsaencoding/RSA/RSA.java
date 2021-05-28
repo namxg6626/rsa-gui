@@ -30,10 +30,10 @@ public class RSA {
 
     public KeyPair generateRandomKeyPair() {
         // step 1: choose 2 prime numbers // private side
-//        int q = this.getRandomPrimeNumber();
-//        int p = this.getRandomPrimeNumber();
-        int q = 7;
-        int p = 2;
+        int q = this.getRandomPrimeNumber();
+        int p = this.getRandomPrimeNumber();
+//        int q = 13;
+//        int p = 17;
 
         // private side
         // step 2: calculate the phi 
@@ -71,7 +71,7 @@ public class RSA {
         System.out.println("lwPlainMsgInts " + lwPlainMsgInts);
 
         for (Integer plainInt : lwPlainMsgInts) {
-            Integer encrypted = (int) Math.pow(plainInt, pubKey.getE()) % pubKey.getN();
+            Integer encrypted = ((int) Math.pow(plainInt, pubKey.getE())) % pubKey.getN();
             if (encrypted >= 26) {
                 encrypted = encrypted % 26;
             }
@@ -92,9 +92,9 @@ public class RSA {
 
         for (Integer encryptedInt : lwEncryptedInts) {
             Integer decrypted = this.fastModPower(encryptedInt, d, N);
-
+            System.out.println("decrypted " + decrypted);
             if (decrypted >= 26) {
-                decrypted = decrypted % 26;
+                decrypted = (decrypted) % 26;
             }
             lwDecryptedInts.add(decrypted);
         }
@@ -195,6 +195,7 @@ public class RSA {
 
     private int fastModPower(Integer base, Integer exponent, Integer modulus) {
         String bitsOfExponentStr = Integer.toBinaryString(exponent);
+        System.out.println("bitsOfExponentStr " + bitsOfExponentStr);
         Integer r = base;
 
         for (int i = 1; i < bitsOfExponentStr.length(); i++) {
